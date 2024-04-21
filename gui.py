@@ -5,6 +5,7 @@ from PySide6.QtGui import QTextCursor
 import queue
 import threading
 import google.generativeai as genai
+import pyttsx3
 
 class AI(QObject):
     response_received = Signal(str)
@@ -52,6 +53,7 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("TutorAI")
         self.setFixedSize(640, 480)
+        self.tts = False
 
         self.main = QWidget(self)
         self.main.setGeometry(0, 0, 800, 600)
@@ -80,6 +82,13 @@ class MainWindow(QMainWindow):
         self.sendButton.setText("Send")
         self.sendButton.setStyleSheet("border: 2px solid white; border-radius: 15px; color: white;")
         self.sendButton.clicked.connect(self.send_message)
+        
+        self.ttsButton = QPushButton(self.main)
+        self.ttsButton.setGeometry(580, 380, 34, 34)
+        self.ttsButton.setText("TTS")
+        self.ttsButton.setStyleSheet("border: 2px solid black; border-radius: 15px; color: black;")
+        self.ttsButton.clicked.connect(self.toggle_tts)
+        
 
         self.ai = AI()
         self.ai.response_received.connect(self.display_response)
@@ -96,9 +105,24 @@ class MainWindow(QMainWindow):
             self.ai_thread = threading.Thread(target=self.ai.send_message, args=(question,))
             self.ai_thread.start()
             self.messageInput.clear()
+            
+    def toggle_tts(self):
+        if self.tts == False:
+            self.tts = True
+            self.ttsButton.setStyleSheet("border: 2px solid white; border-radius: 15px; color: white;")
+        else:
+            self.tts = False
+            self.ttsButton.setStyleSheet("border: 2px solid black; border-radius: 15px; color: black;")
 
     def display_response(self, response):
         self.print_text_animated("\nTutorAI: " + response)
+        if self.tts:
+            engine = pyttsx3.init()
+            voices = engine.getProperty('voices')
+            engine.setProperty('voice', voices[1].id) 
+            engine.say(self.full_text[9:])
+            engine.runAndWait()
+
 
     def print_text_animated(self, text):
         self.current_text = ""
