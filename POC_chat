@@ -1,0 +1,37 @@
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTextEdit, QLineEdit, QPushButton, QWidget
+
+class ChatWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Chat Window")
+        self.setGeometry(100, 100, 600, 400)
+
+        central_widget = QWidget()
+        self.setCentralWidget(central_widget)
+        
+        self.chat_history = QTextEdit()
+        self.chat_history.setReadOnly(True)
+
+        self.message_input = QLineEdit()
+        self.send_button = QPushButton("Send")
+        self.send_button.clicked.connect(self.send_message)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.chat_history)
+        layout.addWidget(self.message_input)
+        layout.addWidget(self.send_button)
+
+        central_widget.setLayout(layout)
+
+    def send_message(self):
+        message = self.message_input.text()
+        if message:
+            self.chat_history.append("You: " + message)
+            self.message_input.clear()
+
+if __name__ == "__main__":
+    app = QApplication([])
+    window = ChatWindow()
+    window.show()
+    app.exec_()
