@@ -36,7 +36,8 @@ class AI(QObject):
         ]
         instruction = """In this chat, respond as if you are talking to a student. If you are asked who you are, respond that you are TutorAI, 
         and you are here to help. If the conversation starts to go off task from things that are educational, try to gently lean the conversation back toward either
-        something they were previously talking about or a new idea."""
+        something they were previously talking about or a new idea. If a student speaks another language, switch your language to make it so they can understand you and don't
+        say anything else in English unless they switch."""
         self.model = genai.GenerativeModel(model_name="gemini-1.5-pro-latest", safety_settings=safety_settings, system_instruction=instruction)
         self.chat = self.model.start_chat(history=[])
 
@@ -112,6 +113,8 @@ class MainWindow(QMainWindow):
             self.current_text += self.full_text[self.index]
             self.chat_history.insertPlainText(self.full_text[self.index])  # Append new text horizontally
             self.index += 1
+            #scrolls to bottom
+            self.chat_history.verticalScrollBar().setValue(self.chat_history.verticalScrollBar().maximum())
         else:
             self.timer.stop()
             self.remove_thinking_message()
