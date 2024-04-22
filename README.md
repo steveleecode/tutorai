@@ -20,5 +20,4 @@ This app was made using:
 * Progress Tracking
 
 ## Credits
-This app was made in collaboration with @trinabhgupta and @mightytronkel.
-[John Doe](https://duckduckgo.com)
+This app was made in collaboration with [Trinabh Gupta](https://github.com/trinabhgupta) and [Aviv Chatterjee](https://github.com/MightyTronkel).
