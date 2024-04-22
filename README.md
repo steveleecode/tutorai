@@ -21,4 +21,4 @@ This app was made using:
 
 ## Credits
 This app was made in collaboration with @trinabhgupta and @mightytronkel.
-[John Doe](username:johndoe)
+[John Doe](https://duckduckgo.com)
