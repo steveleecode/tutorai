@@ -18,3 +18,6 @@ This app was made using:
 * Support for Audio Input
 * User Profiles
 * Progress Tracking
+
+## Credits
+This app was made in collaboration with @trinabhgupta and @mightytronkel.
