@@ -6,6 +6,8 @@ import queue
 import threading
 import google.generativeai as genai
 import pyttsx3
+from env_colab_pass import passutil #pip install env-colab-pass
+import os
 
 class AI(QObject):
     response_received = Signal(str)
@@ -16,7 +18,7 @@ class AI(QObject):
         self.start_model()
 
     def start_model(self):
-        genai.configure(api_key="AIzaSyC8OjyoyM3UUU9G8gTs3jzSSnfwYjiei6M")
+        genai.configure(api_key=str(os.getenv("GOOGLE_API_KEY"))) #Make an env var with key "GOOGLE_API_KEY" and set the value as your google colab api key
         safety_settings = [
             {
                 "category": "HARM_CATEGORY_HARASSMENT",
