@@ -1,0 +1,4 @@
+PySide6
+google-generativeai
+pyttsx3
+env_colab_pass
